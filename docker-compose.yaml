@@ -5,7 +5,6 @@ networks:
     driver: bridge
 
 services:
-
   pyspark:
     image: avnish327030/pyspark-3.2.1:latest
     container_name: pyspark
@@ -14,9 +13,9 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     ports:
-      - "4040:4040"
+      - '4040:4040'
     volumes:
-      - "./mysql-kafka-s3:/project"
+      - './mysql-kafka-s3:/project'
     networks:
       - bigdata
 
@@ -27,12 +26,12 @@ services:
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - "3306:3306"
+      - '3306:3306'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
     volumes:
-      - "./datadir:/var/lib/mysql"
+      - './datadir:/var/lib/mysql'
     networks:
       - bigdata
 
@@ -43,13 +42,12 @@ services:
       - 8085:8080
     networks:
       - bigdata
-  
+
   older_pyspark:
-   image: avnish327030/pyspark-2.4.8-hadoop-3.0:latest
-   container_name: pyspark_v2.4.8
-   environment:
+    image: avnish327030/pyspark-2.4.8-hadoop-3.0:latest
+    container_name: pyspark_v2.4.8
+    environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-   volumes:
-    - "./kafka-redshift:/project"
-
+    volumes:
+      - './kafka-redshift:/project'
